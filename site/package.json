@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run gen:hero && next dev",
+    "gen:hero": "node scripts/gen-hero.mjs",
+    "prebuild": "node scripts/gen-hero.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
