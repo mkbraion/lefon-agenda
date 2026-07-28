@@ -116,7 +116,7 @@ export function Landing() {
   return (
     <div ref={rootRef}>
       <HeroFuturistic
-        eyebrow="RE/MAX · Londero"
+        eyebrow="KAIA Agenda"
         title="A agenda que não esquece"
         subtitle="Agende visitas em segundos, acompanhe sua equipe em tempo real e nunca mais perca uma venda por esquecimento."
         cta={{ label: 'Entrar no sistema', href: APP_URL }}
@@ -240,11 +240,8 @@ export function Landing() {
 
       <footer className="border-t">
         <div className="container flex flex-col items-center justify-between gap-4 py-9 text-center sm:flex-row sm:text-left">
-          <p className="text-sm text-muted-foreground">
-            <span className="font-display font-semibold text-foreground">
-              KAIA Agenda
-            </span>{' '}
-            · RE/MAX Londero
+          <p className="font-display text-sm font-semibold text-foreground">
+            KAIA Agenda
           </p>
           <a
             href={APP_URL}
