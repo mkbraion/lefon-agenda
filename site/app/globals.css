@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paleta editorial do KAIA — papel, tinta e vermelho-tijolo.
+       Em HSL sem vírgulas para casar com o padrão shadcn. */
+    --background: 41 33% 95%;
+    --foreground: 33 15% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 33 15% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 33 15% 11%;
+
+    --primary: 3 61% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 38 33% 96%;
+    --secondary-foreground: 33 15% 11%;
+
+    --muted: 38 33% 96%;
+    --muted-foreground: 40 11% 33%;
+
+    --accent: 214 42% 39%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 5 61% 44%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 38 27% 86%;
+    --input: 38 27% 86%;
+    --ring: 3 61% 39%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 24 16% 6%;
+    --foreground: 41 33% 95%;
+
+    --card: 25 15% 10%;
+    --card-foreground: 41 33% 95%;
+
+    --popover: 25 15% 10%;
+    --popover-foreground: 41 33% 95%;
+
+    --primary: 4 56% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 13% 14%;
+    --secondary-foreground: 41 33% 95%;
+
+    --muted: 25 13% 14%;
+    --muted-foreground: 38 12% 68%;
+
+    --accent: 214 38% 55%;
+    --accent-foreground: 24 16% 6%;
+
+    --destructive: 5 61% 52%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 27 13% 18%;
+    --input: 27 13% 18%;
+    --ring: 4 56% 48%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* ===== animações do hero ===== */
+@keyframes heroWordIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes heroSubIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes heroArrow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.hero-word-in {
+  display: inline-block;
+  animation: heroWordIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-sub-in {
+  display: inline-block;
+  animation: heroSubIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-cta {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-arrow {
+  display: inline-flex;
+  animation: heroArrow 1.9s ease-in-out infinite;
+}
+
+/* Revelação por scroll das seções */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word-in,
+  .hero-sub-in,
+  .hero-cta,
+  .hero-arrow,
+  .reveal-on-scroll {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
