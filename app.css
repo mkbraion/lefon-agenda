@@ -19,18 +19,36 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font-family:var(--font); background:var(--bg); color:var(--txt);
+  font-family:var(--font); background:#5E1613; color:var(--txt);
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; min-height:100vh;
-  /* Brilhos amplos e de baixa opacidade: dão profundidade ao papel sem
-     roubar contraste dos cartões brancos que ficam por cima. */
+  /* Vermelho profundo com o foco de luz no alto, de onde os raios saem. */
   background-image:
-    radial-gradient(1150px 640px at 88% -10%, rgba(158,43,37,.26), transparent 60%),
-    radial-gradient(950px 560px at -8% 6%, rgba(58,90,140,.13), transparent 56%),
-    radial-gradient(880px 500px at 45% 106%, rgba(158,43,37,.15), transparent 60%),
-    linear-gradient(180deg, rgba(158,43,37,.07), transparent 26%);
+    radial-gradient(1400px 900px at 50% -18%, rgba(226,92,72,.95), transparent 68%),
+    radial-gradient(1000px 720px at 88% 6%, rgba(178,50,42,.75), transparent 62%),
+    linear-gradient(180deg, #93271F 0%, #6B1A16 46%, #431110 100%);
   background-attachment:fixed;
   background-repeat:no-repeat;
 }
+
+/* ===== Raios de luz girando atrás do conteúdo =====
+   Leque cônico mascarado nas bordas para não virar um moinho: o giro é
+   lento e a opacidade baixa, então lê como luz, não como enfeite. */
+body::before{
+  content:""; position:fixed; inset:-60%; z-index:-1; pointer-events:none;
+  background:repeating-conic-gradient(from 0deg at 50% 50%,
+    rgba(255,222,205,.20) 0deg 2.4deg,
+    rgba(255,222,205,0) 2.4deg 11deg);
+  -webkit-mask-image:radial-gradient(closest-side, rgba(0,0,0,.95), rgba(0,0,0,.35) 52%, transparent 76%);
+  mask-image:radial-gradient(closest-side, rgba(0,0,0,.95), rgba(0,0,0,.35) 52%, transparent 76%);
+  animation:raios 120s linear infinite;
+  will-change:transform;
+}
+/* brilho quente no ponto de fuga dos raios */
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(620px 420px at 50% 2%, rgba(255,196,168,.30), transparent 70%);
+}
+@keyframes raios{to{transform:rotate(360deg)}}
 ::selection{background:rgba(158,43,37,.16)}
 button{font-family:inherit}
 :focus-visible{outline:2px solid var(--primary);outline-offset:2px}
@@ -61,7 +79,7 @@ button{font-family:inherit}
 .wrap{max-width:1180px; margin:0 auto; padding:22px 18px 64px}
 
 /* ===== spinner de carregamento ===== */
-.boot{position:fixed;inset:0;display:grid;place-items:center;background:var(--bg);z-index:200;transition:opacity .3s}
+.boot{position:fixed;inset:0;display:grid;place-items:center;background:#5E1613;z-index:200;transition:opacity .3s}
 .boot.hide{opacity:0;pointer-events:none}
 .spinner{width:40px;height:40px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--primary);animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -71,7 +89,19 @@ button{font-family:inherit}
    ============================================================ */
 .auth{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr}
 .auth-brand{position:relative;overflow:hidden;padding:48px 46px;display:flex;flex-direction:column;justify-content:space-between;
-  background:var(--card-2); border-right:1px solid var(--border)}
+  background:transparent; border-right:none}
+/* o painel da marca fica sobre o vermelho: texto claro */
+.auth-brand .auth-logo h1{color:#FDF6EE}
+.auth-brand .auth-logo .ws{color:rgba(253,246,238,.72)}
+.auth-brand .auth-logo .mark{background:#FDF6EE}
+.auth-brand .auth-logo .mark svg path{stroke:var(--primary-deep)}
+.auth-brand .auth-hero h2{color:#FDF6EE}
+.auth-brand .auth-hero h2 .g{color:#FFC9B4}
+.auth-brand .auth-hero p{color:rgba(253,246,238,.78)}
+.auth-brand .auth-feat{color:rgba(253,246,238,.78)}
+.auth-brand .auth-feat b{color:#FDF6EE}
+.auth-brand .auth-feat .fi{background:rgba(253,246,238,.14)}
+.auth-brand .auth-feat .fi svg{color:#FFC9B4}
 .auth-brand .aglow{display:none}
 .auth-logo{display:flex;align-items:center;gap:13px;position:relative}
 .auth-logo .mark{width:50px;height:50px;border-radius:13px;background:var(--primary);
@@ -92,7 +122,9 @@ button{font-family:inherit}
 .auth-feat b{color:var(--txt);font-weight:700}
 
 .auth-panel{display:flex;align-items:center;justify-content:center;padding:40px 28px;background:transparent}
-.auth-card{width:100%;max-width:380px}
+/* cartão de verdade sobre o vermelho, senão o formulário fica ilegível */
+.auth-card{width:100%;max-width:380px;background:var(--bg);border:1px solid rgba(253,246,238,.2);
+  border-radius:18px;padding:26px 24px;box-shadow:0 26px 60px rgba(40,8,6,.42)}
 .auth-tabs{display:flex;gap:5px;padding:4px;background:var(--card-2);border:1px solid var(--border);border-radius:12px;margin-bottom:24px}
 .auth-tab{flex:1;border:none;background:transparent;color:var(--txt-2);font-size:14px;font-weight:700;padding:11px;border-radius:9px;cursor:pointer;transition:.15s}
 .auth-tab.active{background:var(--surface);color:var(--txt);border:1px solid var(--border);box-shadow:var(--shadow)}
@@ -418,6 +450,26 @@ button{font-family:inherit}
 .add-corr-row .btn-primary{white-space:nowrap;justify-content:center;padding:12px 20px}
 @media (max-width:760px){ .add-corr-row{grid-template-columns:1fr} }
 
+/* ============================================================
+   TEXTO SOBRE O VERMELHO
+   Fica no fim de propósito: precisa vencer as cores definidas nos
+   blocos de componente acima, que assumem fundo claro.
+   ============================================================ */
+.brand-txt h1, .hello .line, .admin-title{color:#FDF6EE}
+.brand-txt .ws, .clock .d, .admin-sub{color:rgba(253,246,238,.75)}
+.clock .t{color:#FDF6EE}
+.hello .eb{color:#FFD2BE}
+.hello .line b{color:#FFF}
+.hello .line .accent{color:#FFD2BE}
+.topbar{border-bottom-color:rgba(253,246,238,.2)}
+.admin-title .badge-dev{color:#FFD2BE;background:rgba(253,246,238,.14);border-color:rgba(253,246,238,.3)}
+.remax-dot{box-shadow:0 0 0 2px rgba(253,246,238,.35)}
+/* CTA principal invertido: creme sobre o vermelho, senão some no fundo */
+#openNew{background:#FDF6EE;color:var(--primary-deep)}
+#openNew:hover{background:#fff}
+.back-btn{background:rgba(253,246,238,.14);border-color:rgba(253,246,238,.3);color:#FDF6EE}
+.back-btn:hover{background:rgba(253,246,238,.22);border-color:rgba(253,246,238,.45)}
+
 /* ===== animações ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .reveal{animation:fadeUp .5s cubic-bezier(.22,1,.36,1) both}
@@ -451,4 +503,8 @@ button{font-family:inherit}
     box-shadow:0 10px 30px rgba(158,43,37,.35),0 6px 18px rgba(32,26,18,.18)}
   #openNew:active{transform:translateX(-50%) scale(.96)}
 }
-@media (prefers-reduced-motion:reduce){ *{animation-duration:.001s !important;transition-duration:.05s !important} }
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s !important;transition-duration:.05s !important}
+  /* os raios param, mas continuam visíveis */
+  body::before{animation:none !important}
+}
