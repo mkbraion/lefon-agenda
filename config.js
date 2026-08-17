@@ -1,5 +1,5 @@
 /* ============================================================
-   KAIA Agenda — configuração
+   Lefon Agenda — configuração
    ------------------------------------------------------------
    Enquanto as chaves abaixo estiverem VAZIAS, o app roda em
    MODO DEMO (dados salvos só no navegador — ótimo pra testar e
@@ -10,7 +10,7 @@
      - SUPABASE_URL       (Settings → API → Project URL)
      - SUPABASE_ANON_KEY  (Settings → API → anon public)
    ============================================================ */
-window.KAIA_CONFIG = {
+window.LEFON_CONFIG = {
   SUPABASE_URL: "https://nqcnnyodlnrjeqnyhdps.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_o3sSBkN8QKNzQ9Hmm9KAfA_Xg5gKZF0",
 

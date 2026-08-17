@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Paleta editorial do KAIA — papel, tinta e vermelho-tijolo.
+    /* Paleta editorial do LEFON — papel, tinta e vermelho-tijolo.
        Em HSL sem vírgulas para casar com o padrão shadcn. */
     --background: 41 33% 95%;
     --foreground: 33 15% 11%;

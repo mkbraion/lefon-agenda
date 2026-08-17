@@ -16,12 +16,23 @@ Settings → Edge Functions → Manage secrets*). Adicione:
 
 | Secret | Valor | Obrigatório |
 |---|---|---|
-| `WHATSAPP_TOKEN` | O token da sua API (o mesmo do seu KAIA WhatsApp) | ✅ |
+| `WHATSAPP_TOKEN` | O token da sua API (o mesmo do seu Lefon WhatsApp) | ✅ |
 | `WHATSAPP_PHONE_ID` | O *Phone Number ID* do WhatsApp Business | ✅ |
-| `CRON_SECRET` | `kaia_cron_7f3a9c21b8e4d605` | 🔒 recomendado |
+| `CRON_SECRET` | `COLE-AQUI-SEU-SEGREDO` | 🔒 recomendado |
 | `WHATSAPP_TEMPLATE` | `lembrete_visita` | opcional (já é o padrão) |
 | `WHATSAPP_LANG` | `pt_BR` | opcional |
 | `REMINDER_HOURS` | `3` (quantas horas antes avisar) | opcional |
+
+> **Gere o seu `CRON_SECRET`** — não use um valor que esteja escrito em algum
+> lugar público. Um comando que serve:
+>
+> ```bash
+> node -e "console.log('cron_'+require('crypto').randomBytes(24).toString('hex'))"
+> ```
+>
+> Cole o resultado no secret da Edge Function **e** no agendador. Como a função
+> roda com `verify_jwt: false`, esse segredo é a única coisa que impede um
+> estranho de disparar os lembretes para os seus clientes — trate como senha.
 
 > **Importante:** use um **token permanente** (System User token), não o token
 > temporário de 24h do painel de testes da Meta — senão o robô para no dia seguinte.
@@ -54,7 +65,7 @@ avisar sozinho** — sem você fazer mais nada.
 **Testar na hora** (depois de configurar), pelo terminal:
 ```bash
 curl -s -X POST https://nqcnnyodlnrjeqnyhdps.supabase.co/functions/v1/send-reminders \
-  -H "x-cron-secret: kaia_cron_7f3a9c21b8e4d605"
+  -H "x-cron-secret: COLE-AQUI-SEU-SEGREDO"
 ```
 Resposta esperada: `{"ok":true,"configured":true,"checked":N,"sent":N,...}`.
 
@@ -67,12 +78,12 @@ select * from cron.job;
 -- ver as últimas execuções
 select * from cron.job_run_details order by start_time desc limit 10;
 -- pausar o robô
-select cron.unschedule('kaia-lembretes-whatsapp');
+select cron.unschedule('lefon-lembretes-whatsapp');
 -- religar (a cada 15 min)
-select cron.schedule('kaia-lembretes-whatsapp','*/15 * * * *', $$
+select cron.schedule('lefon-lembretes-whatsapp','*/15 * * * *', $$
   select net.http_post(
     url := 'https://nqcnnyodlnrjeqnyhdps.supabase.co/functions/v1/send-reminders',
-    headers := jsonb_build_object('Content-Type','application/json','x-cron-secret','kaia_cron_7f3a9c21b8e4d605'),
+    headers := jsonb_build_object('Content-Type','application/json','x-cron-secret','COLE-AQUI-SEU-SEGREDO'),
     body := '{}'::jsonb);
 $$);
 ```

@@ -1,12 +1,12 @@
 /* ============================================================
-   KAIA Agenda — camada de dados (Data)
+   Lefon Agenda — camada de dados (Data)
    API única para auth / agendamentos / usuários.
    - Se config.js tiver as chaves do Supabase  -> modo REAL (24/7)
    - Caso contrário                             -> modo DEMO (localStorage)
    ============================================================ */
 (function () {
   "use strict";
-  const CFG = window.KAIA_CONFIG || {};
+  const CFG = window.LEFON_CONFIG || {};
   const SUPA_ON = !!(CFG.SUPABASE_URL && CFG.SUPABASE_ANON_KEY && window.supabase);
   const OWNER = (CFG.OWNER_EMAIL || "").toLowerCase();
 
@@ -17,11 +17,11 @@
   const rid = (p) => (p || "id") + Math.random().toString(36).slice(2, 10);
   async function hash(txt) {
     try {
-      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("kaia::" + txt));
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("lefon::" + txt));
       return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
     } catch (e) {
       // fallback (contexto não seguro) — só demo
-      let h = 0; for (const c of "kaia::" + txt) h = (h * 31 + c.charCodeAt(0)) | 0;
+      let h = 0; for (const c of "lefon::" + txt) h = (h * 31 + c.charCodeAt(0)) | 0;
       return "f" + (h >>> 0).toString(16);
     }
   }
@@ -29,9 +29,9 @@
   /* ============================================================
      MODO DEMO (localStorage)
      ============================================================ */
-  const LS_USERS = "kaia_users_v1";
-  const LS_APPTS = "kaia_appts_v4";
-  const LS_SESSION = "kaia_session_v1";
+  const LS_USERS = "lefon_users_v1";
+  const LS_APPTS = "lefon_appts_v4";
+  const LS_SESSION = "lefon_session_v1";
 
   const DEMO_CORRETORES = [
     { id: "c1", nome: "Nelson Neto", cor: "#9E2B25" },
@@ -236,7 +236,7 @@
         const cores = ["#9E2B25", "#3A5A8C", "#57534E", "#35714B", "#B3372C", "#6E4A8C"];
         if (SUPA_ON) {
           const tmp = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY,
-            { auth: { persistSession: false, autoRefreshToken: false, storageKey: "kaia_tmp_" + rid("") } });
+            { auth: { persistSession: false, autoRefreshToken: false, storageKey: "lefon_tmp_" + rid("") } });
           const { data, error } = await tmp.auth.signUp({ email, password: senha, options: { data: { nome } } });
           if (error) throw new Error(mapErr(error.message));
           try {
@@ -277,7 +277,7 @@
           return { emailed: true };
         }
         const users = await demoUsers(); const u = users.find((x) => x.id === id);
-        const temp = "kaia" + Math.floor(1000 + Math.random() * 9000);
+        const temp = "lefon" + Math.floor(1000 + Math.random() * 9000);
         if (u) { u.passHash = await hash(temp); demoSaveUsers(users); }
         return { temp };
       },
@@ -293,5 +293,5 @@
     return m || "Não foi possível concluir. Tente de novo.";
   }
 
-  window.KAIA_DATA = Data;
+  window.LEFON_DATA = Data;
 })();

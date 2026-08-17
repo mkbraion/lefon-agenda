@@ -24,7 +24,7 @@ const HeroFuturistic = dynamic(
   }
 );
 
-const APP_URL = 'https://kaia-agenda.vercel.app';
+const APP_URL = 'https://lefon-agenda.vercel.app';
 
 const FEATURES = [
   {
@@ -116,7 +116,7 @@ export function Landing() {
   return (
     <div ref={rootRef}>
       <HeroFuturistic
-        eyebrow="KAIA Agenda"
+        eyebrow="Lefon Agenda"
         title="A agenda que não esquece"
         subtitle="Agende visitas em segundos, acompanhe sua equipe em tempo real e nunca mais perca uma venda por esquecimento."
         cta={{ label: 'Entrar no sistema', href: APP_URL }}
@@ -230,7 +230,7 @@ export function Landing() {
                 href={APP_URL}
                 className="mt-9 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground transition-colors hover:bg-[#7C201B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E0857A] sm:text-base"
               >
-                Abrir a KAIA Agenda
+                Abrir a Lefon Agenda
                 <ArrowRight size={18} strokeWidth={2.4} aria-hidden />
               </a>
             </div>
@@ -241,7 +241,7 @@ export function Landing() {
       <footer className="border-t">
         <div className="container flex flex-col items-center justify-between gap-4 py-9 text-center sm:flex-row sm:text-left">
           <p className="font-display text-sm font-semibold text-foreground">
-            KAIA Agenda
+            Lefon Agenda
           </p>
           <a
             href={APP_URL}
