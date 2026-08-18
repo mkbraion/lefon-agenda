@@ -15,11 +15,11 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'KAIA Agenda — a agenda inteligente do corretor',
+  title: 'Lefon Agenda — a agenda inteligente do corretor',
   description:
     'Agende visitas em segundos, acompanhe sua equipe em tempo real e nunca mais perca uma venda por esquecimento.',
   openGraph: {
-    title: 'KAIA Agenda — a agenda inteligente do corretor',
+    title: 'Lefon Agenda — a agenda inteligente do corretor',
     description:
       'Agende visitas em segundos, acompanhe sua equipe em tempo real e nunca mais perca uma venda por esquecimento.',
     type: 'website',

@@ -1,4 +1,4 @@
-# KAIA Agenda — como colocar 24/7 no ar
+# Lefon Agenda — como colocar 24/7 no ar
 
 O app já funciona **agora** em *modo demo* (dados só no navegador). Para virar
 um sistema real, com **login e banco 24/7** que você não precisa cuidar, siga
@@ -13,7 +13,7 @@ os passos abaixo. Leva ~15 min e o plano gratuito dá conta pra começar.
 ## 1. Criar o banco (Supabase) — o "servidor 24/7"
 
 1. Acesse **supabase.com** → *Start your project* → entre com o Google/GitHub.
-2. **New project**: dê um nome (ex.: `kaia-agenda`), crie uma **senha do banco**
+2. **New project**: dê um nome (ex.: `lefon-agenda`), crie uma **senha do banco**
    (guarde), escolha a região mais perto (ex.: *São Paulo*). Aguarde ~2 min.
 3. No menu lateral, abra **SQL Editor** → *New query* → cole **todo** o conteúdo
    do arquivo [`schema.sql`](schema.sql) → **Run**. Deve aparecer "Success".
@@ -55,7 +55,7 @@ os passos abaixo. Leva ~15 min e o plano gratuito dá conta pra começar.
 **Opção B — linha de comando:**
 ```bash
 npm i -g vercel
-cd kaia-agenda
+cd lefon-agenda
 vercel        # siga o assistente; aceite os padrões
 vercel --prod # publica em produção
 ```

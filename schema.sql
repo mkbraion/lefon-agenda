@@ -1,5 +1,5 @@
 -- ============================================================
---  KAIA Agenda — schema do banco (Supabase / Postgres)
+--  Lefon Agenda — schema do banco (Supabase / Postgres)
 --  Cole TUDO no SQL Editor do Supabase e clique em "Run".
 --  Seguro para rodar novamente (idempotente).
 -- ============================================================

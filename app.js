@@ -1,10 +1,10 @@
 /* ============================================================
-   KAIA Agenda — app (UI, rotas, agenda, admin)
+   Lefon Agenda — app (UI, rotas, agenda, admin)
    ============================================================ */
 (function () {
   "use strict";
-  const Data = window.KAIA_DATA;
-  const CFG = window.KAIA_CONFIG || {};
+  const Data = window.LEFON_DATA;
+  const CFG = window.LEFON_CONFIG || {};
   const $ = (id) => document.getElementById(id);
 
   /* ---------- ícones ---------- */
