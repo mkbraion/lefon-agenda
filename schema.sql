@@ -47,23 +47,33 @@ create index if not exists appointments_dt_idx on public.appointments (dt);
 alter table public.profiles     enable row level security;
 alter table public.appointments enable row level security;
 
--- Função auxiliar: o usuário atual é admin?
-create or replace function public.is_admin()
+-- ---------- Schema privado (fora da API REST) ----------
+-- Se a função ficar em `public`, o Supabase publica um endpoint
+-- /rest/v1/rpc/is_admin. Em `private`, não publica.
+create schema if not exists private;
+revoke all on schema private from anon, authenticated;
+grant usage on schema private to authenticated;
+
+create or replace function private.is_admin()
 returns boolean language sql stable security definer set search_path = public as $$
   select exists (
     select 1 from public.profiles p
     where p.id = auth.uid() and p.role = 'admin'
   );
 $$;
+revoke all on function private.is_admin() from public, anon;
+grant execute on function private.is_admin() to authenticated;
 
 -- --- Políticas: profiles ---
 drop policy if exists "perfil: ver o próprio ou admin vê todos" on public.profiles;
 create policy "perfil: ver o próprio ou admin vê todos"
-  on public.profiles for select using ( id = auth.uid() or public.is_admin() );
+  on public.profiles for select using ( id = auth.uid() or private.is_admin() );
 
 drop policy if exists "perfil: atualizar o próprio ou admin" on public.profiles;
 create policy "perfil: atualizar o próprio ou admin"
-  on public.profiles for update using ( id = auth.uid() or public.is_admin() );
+  on public.profiles for update
+  using      ( id = auth.uid() or private.is_admin() )
+  with check ( id = auth.uid() or private.is_admin() );
 
 -- --- Políticas: appointments (escritório único = todos logados) ---
 drop policy if exists "agenda: logados leem" on public.appointments;
@@ -80,7 +90,39 @@ create policy "agenda: logados atualizam"
 
 drop policy if exists "agenda: admin apaga" on public.appointments;
 create policy "agenda: admin apaga"
-  on public.appointments for delete using ( public.is_admin() );
+  on public.appointments for delete using ( private.is_admin() );
+
+
+-- ============================================================
+--  Trava de escalada de privilégio
+--  Sem isto, a política "atualizar o próprio perfil" deixava
+--  QUALQUER corretor logado rodar:
+--      update profiles set role = 'admin' where id = auth.uid();
+--  e virar dono do sistema.
+-- ============================================================
+create or replace function private.guard_profile_privileges()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if private.is_admin() then
+    return new;
+  end if;
+  if new.role is distinct from old.role then
+    raise exception 'Sem permissao para alterar o cargo.' using errcode = '42501';
+  end if;
+  if new.ativo is distinct from old.ativo then
+    raise exception 'Sem permissao para alterar o acesso.' using errcode = '42501';
+  end if;
+  if new.id is distinct from old.id then
+    raise exception 'Sem permissao para alterar o identificador.' using errcode = '42501';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists profiles_guard_privileges on public.profiles;
+create trigger profiles_guard_privileges
+  before update on public.profiles
+  for each row execute function private.guard_profile_privileges();
 
 -- ============================================================
 --  Ao criar um usuário no Auth, cria o perfil automaticamente.
