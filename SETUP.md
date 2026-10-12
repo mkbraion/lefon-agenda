@@ -4,9 +4,9 @@ O app já funciona **agora** em *modo demo* (dados só no navegador). Para virar
 um sistema real, com **login e banco 24/7** que você não precisa cuidar, siga
 os passos abaixo. Leva ~15 min e o plano gratuito dá conta pra começar.
 
-> Você faz os passos que envolvem **criar conta** e **colar chaves** — eu (a IA)
-> não posso criar contas nem digitar senhas em seu nome. Todo o código já está
-> pronto; é só ligar.
+> A configuração das contas, permissões e credenciais é responsabilidade de quem
+> administra a instância. Use este guia para configurar uma nova instalação e
+> valide o acesso antes de disponibilizá-la à equipe.
 
 ---
 
@@ -62,8 +62,8 @@ vercel --prod # publica em produção
 
 ## Como funciona a segurança (pode contar pro cliente)
 
-- As senhas ficam no **Auth do Supabase, com hash** — nem você, nem eu, nem
-  ninguém vê a senha de um corretor. Você **reseta**, mas não **lê**.
+- A autenticação é delegada ao **Supabase Auth**. O aplicativo não oferece leitura
+  de senhas; a recuperação de acesso deve usar o fluxo de redefinição.
 - O acesso ao banco é protegido por **RLS** (Row Level Security): só quem está
   logado enxerga a agenda, e só o **admin** enxerga a lista de usuários.
 
