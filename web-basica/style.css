@@ -4,3 +4,23 @@
 [hidden]{display:none!important}
 
 [hidden]{display:none!important}
+
+/* Paleta enviada pelo usuário: grafite, vermelho e vinho. */
+:root{color-scheme:dark;--graphite:#19171b;--red:#75020f;--wine:#51080d;--deep-wine:#2b0307;--text:#f8f1ed;--muted:#c5b7bb;--line:#544047;color:var(--text);background:var(--graphite)}
+body{background:radial-gradient(ellipse at 85% 0%,#51080d66,transparent 48%),var(--graphite);min-height:100vh}
+a,.eyebrow{color:#f2a5ad}header{border-color:var(--line)}
+h1{font-weight:750}p,footer,.empty{color:var(--muted)}
+.card,form,.panel{background:linear-gradient(145deg,#282127,#201a1f);border-color:var(--line);box-shadow:0 12px 32px #00000020}
+.card{border-top:3px solid var(--red)}
+.tag{background:var(--deep-wine);color:#f5b6bd;border:1px solid #73313d}
+.button,button{background:var(--red);border-color:#b34b5b;color:#fff6f2;transition:background .15s,border-color .15s}
+.button:hover,button:hover{background:#971426;border-color:#ed9da9}
+button.secondary,.button.secondary{background:var(--deep-wine);color:#f8d8dc;border-color:#97616c}
+button.secondary:hover,.button.secondary:hover{background:var(--wine)}
+button.danger{background:#30171d;color:#ffb9c2;border-color:#a56c79}
+input,textarea,select{background:var(--graphite);color:var(--text);border-color:#8e717d}
+input::placeholder,textarea::placeholder{color:#ad99a2}
+.notice{background:var(--deep-wine);border-color:#bf5667;color:#ead5d9}
+.entry{border-color:var(--line)}.entry.done h3{color:#bca7ae}
+#feedback{color:#ffb6c0}:focus-visible{outline-color:#ffb6c0}
+@media(prefers-reduced-motion:reduce){.button,button{transition:none}}

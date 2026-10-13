@@ -1,0 +1,10 @@
+Lefon Agenda básica — web-v1.0.0
+
+Criar, editar, concluir e buscar compromissos; exportar e importar cópias JSON.
+Tema grafite e vinho.
+
+Online: https://mkbraion.github.io/apps/agenda/
+
+Uso local: extraia o ZIP e abra index.html. Se o navegador restringir o armazenamento em arquivos locais, sirva a pasta com um servidor HTTP local. Com Python instalado: python -m http.server 8000; depois abra http://localhost:8000.
+
+Os dados ficam apenas no navegador e na origem usada. A cópia local e o site online não compartilham registros automaticamente. Exporte uma cópia antes de trocar de navegador ou endereço. Não há sincronização com servidor.
