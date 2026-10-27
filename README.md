@@ -1,19 +1,3 @@
-<!-- MKBRAION-POLISH:START -->
-<div align="center">
-
-# Lefon Agenda
-
-**Sistema web de agenda e gestão de visitas para equipes imobiliárias, utilizando Supabase, PostgreSQL e Row Level Security.**
-
-[![Repositório](https://img.shields.io/badge/GitHub-Repositório-181717?logo=github)](https://github.com/mkbraion/lefon-agenda) [![Demo ao vivo](https://img.shields.io/badge/Demo-Abrir%20aplicação-2ea44f?logo=vercel)](https://mkbraion.github.io/lefon-agenda/)
-
-</div>
-
-**Stack / tópicos:** ``authentication`` · ``crm`` · ``css`` · ``frontend`` · ``html`` · ``javascript`` · ``nextjs`` · ``postgresql`` · ``real-estate`` · ``row-level-security`` · ``scheduling`` · ``security``
-
-> Projeto mantido por [@mkbraion](https://github.com/mkbraion).
-<!-- MKBRAION-POLISH:END -->
-
 # Lefon Agenda
 
 Agenda de visitas para equipes de corretores, com interface em HTML, CSS e JavaScript e integração com Supabase.
